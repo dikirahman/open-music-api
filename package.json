@@ -1,5 +1,5 @@
 {
-  "name": "open-music-api-v1",
+  "name": "open-music-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dikirahman/open-music-api-v1.git"
+    "url": "git+https://github.com/dikirahman/open-music-api.git"
   },
   "author": "Diki Rahman",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dikirahman/open-music-api-v1/issues"
+    "url": "https://github.com/dikirahman/open-music-api/issues"
   },
-  "homepage": "https://github.com/dikirahman/open-music-api-v1#readme",
+  "homepage": "https://github.com/dikirahman/open-music-api#readme",
   "dependencies": {
     "@hapi/hapi": "^20.1.5",
     "dotenv": "^10.0.0",
