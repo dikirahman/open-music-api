@@ -20,6 +20,9 @@
         "no-undef": "off",
         "semi": "off",
         "arrow-parens": "off",
-        "camelcase": "off"
+        "camelcase": "off",
+        "class-methods-use-this": "off",
+        "consistent-return": "off",
+        "quotes": "off"
     }
 }
