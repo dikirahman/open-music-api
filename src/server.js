@@ -20,13 +20,34 @@ const AuthenticationsService = require('./services/postgres/AuthenticationsServi
 const TokenManager = require('./tokenize/TokenManager');
 const AuthenticationsValidator = require('./validator/authentications');
 
+// playlists
+const playlists = require('./api/playlists');
+const PlaylistsService = require('./services/postgres/PlaylistsService');
+const PlaylistsValidator = require('./validator/playlists');
+
+// playlistsongs
+const playlistsongs = require('./api/playlistsongs');
+const PlaylistSongsService = require('./services/postgres/PlaylistSongsService');
+const PlaylistSongsValidator = require('./validator/playlistsongs');
+
+// collaborations
+const collaborations = require('./api/collaborations');
+const CollaborationsService = require('./services/postgres/CollaborationsService');
+const CollaborationsValidator = require('./validator/collaborations');
+
 const init = async () => {
-    // create notesService instance from NotesService
+    // create collaborationService instance from CollaborationsService
+    const collaborationsService = new CollaborationsService();
+    // notesService instance
     const songsService = new SongsService();
-    // create usersService instance from UsersService
+    // usersService instance
     const usersService = new UsersService();
-    // create authenticationsService instance from AuthenticationsService
+    // authenticationsService instance
     const authenticationsService = new AuthenticationsService();
+    // playlistsService instantance
+    const playlistsService = new PlaylistsService(collaborationsService);
+    // playlistSongsService instance
+    const playlistSongsService = new PlaylistSongsService();
 
     const server = Hapi.server({
         port: process.env.PORT,
@@ -41,12 +62,12 @@ const init = async () => {
     // register plugin external
     await server.register([
         {
-        plugin: Jwt,
+            plugin: Jwt,
         },
     ]);
 
     // mendefinisikan strategy autentikasi jwt
-    server.auth.strategy('notesapp_jwt', 'jwt', {
+    server.auth.strategy('openmusic_jwt', 'jwt', {
         keys: process.env.ACCESS_TOKEN_KEY,
         verify: {
             aud: false,
@@ -84,6 +105,29 @@ const init = async () => {
               usersService,
               tokenManager: TokenManager,
               validator: AuthenticationsValidator,
+            },
+        },
+        {
+            plugin: playlists,
+            options: {
+              service: playlistsService,
+              validator: PlaylistsValidator,
+            },
+        },
+        {
+            plugin: playlistsongs,
+            options: {
+              playlistSongsService,
+              playlistsService,
+              validator: PlaylistSongsValidator,
+            },
+        },
+        {
+            plugin: collaborations,
+            options: {
+              collaborationsService,
+              playlistsService,
+              validator: CollaborationsValidator,
             },
         },
     ]);
