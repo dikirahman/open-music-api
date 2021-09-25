@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 const mapDBToModel = ({
     id,
     title,
@@ -18,4 +19,24 @@ const mapDBToModel = ({
     updatedAt: updated_at,
 });
 
-module.exports = { mapDBToModel };
+const mapPlaylist = ({
+    id,
+    name,
+    username
+}) => ({
+    id,
+    name,
+    username
+});
+
+const mapSongs = ({
+    id,
+    title,
+    performer
+}) => ({
+    id,
+    title,
+    performer
+});
+
+module.exports = { mapDBToModel, mapPlaylist, mapSongs };
