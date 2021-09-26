@@ -2,8 +2,6 @@ const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const InvariantError = require('../../exceptions/InvariantError');
 const { mapSongs } = require('../../utils');
-const NotFoundError = require('../../exceptions/NotFoundError');
-const AuthorizationError = require('../../exceptions/AuthorizationError');
 
 class playlistSongsService {
     constructor() {
